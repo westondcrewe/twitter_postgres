@@ -153,16 +153,16 @@ def insert_tweet(connection,tweet):
             'created_at':tweet['user']['created_at'],
             'updated_at':tweet['created_at'],
             'id_urls':user_id_urls,
+            'screen_name':remove_nulls(tweet['user']['screen_name']),
+            'name':remove_nulls(tweet['user']['name']),
+            'location':remove_nulls(tweet['user']['location']),
+            'description':remove_nulls(tweet['user']['description']),
             'friends_count':tweet['user']['friends_count'],
             'listed_count':tweet['user']['listed_count'],
             'favourites_count':tweet['user']['favourites_count'],
             'statuses_count':tweet['user']['statuses_count'],
             'protected':tweet['user']['protected'],
             'verified':tweet['user']['verified'],
-            'screen_name':remove_nulls(tweet['user']['screen_name']),
-            'name':remove_nulls(tweet['user']['name']),
-            'location':remove_nulls(tweet['user']['location']),
-            'description':remove_nulls(tweet['user']['description']),
             'withheld_in_countries':tweet['user'].get('withheld_in_countries', None)
             })
 
