@@ -148,7 +148,7 @@ def insert_tweet(connection,tweet):
             ON CONFLICT DO NOTHING
         ''')
         
-        connection.execute(sql, {
+        res = connection.execute(sql, {
             'id_users':tweet['user']['id'],
             'created_at':tweet['user']['created_at'],
             'updated_at':tweet['created_at'],
@@ -381,10 +381,10 @@ def insert_tweet(connection,tweet):
             sql=sqlalchemy.sql.text('''
                 INSERT INTO tweet_tags (
                     id_tweets,
-                    tag )
+                    tag)
                 VALUES (
                     :id_tweets,
-                    :tag )
+                    :tag)
                 ON CONFLICT DO NOTHING
                 ''')
             res = connection.execute(sql, {
