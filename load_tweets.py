@@ -152,7 +152,7 @@ def insert_tweet(connection,tweet):
             'id_users':tweet['user']['id'],
             'created_at':tweet['user']['created_at'],
             'updated_at':tweet['created_at'],
-            'id_urls': user_id_urls,
+            'id_urls':user_id_urls,
             'friends_count':tweet['user']['friends_count'],
             'listed_count':tweet['user']['listed_count'],
             'favourites_count':tweet['user']['favourites_count'],
@@ -162,7 +162,7 @@ def insert_tweet(connection,tweet):
             'screen_name':remove_nulls(tweet['user']['screen_name']),
             'name':remove_nulls(tweet['user']['name']),
             'location':remove_nulls(tweet['user']['location']),
-            'description':tweet['user']['description'],
+            'description':remove_nulls(tweet['user']['description']),
             'withheld_in_countries':tweet['user'].get('withheld_in_countries', None)
             })
 
