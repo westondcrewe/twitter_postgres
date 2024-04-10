@@ -65,7 +65,7 @@ def get_id_urls(url, connection):
         select id_urls 
         from urls
         where
-            url=:url
+            url=:url;
         ''')
         res = connection.execute(sql,{'url':url}).first()
 
@@ -95,7 +95,7 @@ def insert_tweet(connection,tweet):
         sql=sqlalchemy.sql.text('''
             SELECT id_tweets 
             FROM tweets
-            WHERE id_tweets = :id_tweets
+            WHERE id_tweets = :id_tweets;
         ''')
         res = connection.execute(sql,{
             'id_tweets':tweet['id'],
@@ -145,24 +145,24 @@ def insert_tweet(connection,tweet):
                 :location,
                 :description,
                 :withheld_in_countries)
-            ON CONFLICT DO NOTHING
+            ON CONFLICT DO NOTHING;
         ''')
         
         res = connection.execute(sql, {
-            'id_users':tweet['user']['id'],
-            'created_at':tweet['user']['created_at'],
-            'updated_at':tweet['created_at'],
-            'id_urls':user_id_urls,
+            'id_users': tweet['user']['id'],
+            'created_at': tweet['user']['created_at'],
+            'updated_at': tweet['created_at'],
             'screen_name':remove_nulls(tweet['user']['screen_name']),
             'name':remove_nulls(tweet['user']['name']),
             'location':remove_nulls(tweet['user']['location']),
+            'id_urls':user_id_urls,
             'description':remove_nulls(tweet['user']['description']),
+            'protected':tweet['user']['protected'],
+            'verified':tweet['user']['verified'],
             'friends_count':tweet['user']['friends_count'],
             'listed_count':tweet['user']['listed_count'],
             'favourites_count':tweet['user']['favourites_count'],
             'statuses_count':tweet['user']['statuses_count'],
-            'protected':tweet['user']['protected'],
-            'verified':tweet['user']['verified'],
             'withheld_in_countries':tweet['user'].get('withheld_in_countries', None)
             })
 
@@ -226,7 +226,7 @@ def insert_tweet(connection,tweet):
                     id_users )
                 VALUES (
                     :id_users )
-                ON CONFLICT DO NOTHING
+                ON CONFLICT DO NOTHING;
             ''')
             res = connection.execute(sql, {
                 'id_users':tweet['in_reply_to_user_id']
@@ -272,12 +272,12 @@ def insert_tweet(connection,tweet):
                 :lang,
                 :place_name,
                 :geo )
-            ON CONFLICT DO NOTHING
+            ON CONFLICT DO NOTHING;
         ''')
         res = connection.execute(sql, {
             'id_tweets':tweet['id'],
             'id_users':tweet['user']['id'],
-            'created_at':tweet['user']['created_at'],
+            'created_at':tweet['created_at'],
             'in_reply_to_status_id':tweet.get('in_reply_to_status_id', None),
             'in_reply_to_user_id':tweet.get('in_reply_to_user_id', None),
             'quoted_status_id':tweet.get('quoted_status_id', None),
@@ -314,7 +314,7 @@ def insert_tweet(connection,tweet):
                 VALUES (
                     :id_tweets,
                     :id_urls )
-                ON CONFLICT DO NOTHING 
+                ON CONFLICT DO NOTHING;
                 ''')
             res = connection.execute(sql, {
                 'id_tweets':tweet['id'],
@@ -343,7 +343,7 @@ def insert_tweet(connection,tweet):
                     id_users )
                 VALUES (
                     :id_users )
-                ON CONFLICT DO NOTHING
+                ON CONFLICT DO NOTHING;
                 ''')
             res = connection.execute(sql, {
                 'id_users':mention['id']
@@ -357,7 +357,7 @@ def insert_tweet(connection,tweet):
                 VALUES (
                     :id_tweets,
                     :id_users )
-                ON CONFLICT DO NOTHING
+                ON CONFLICT DO NOTHING;
                 ''')
             res = connection.execute(sql, {
                 'id_tweets':tweet['id'],
@@ -385,7 +385,7 @@ def insert_tweet(connection,tweet):
                 VALUES (
                     :id_tweets,
                     :tag)
-                ON CONFLICT DO NOTHING
+                ON CONFLICT DO NOTHING;
                 ''')
             res = connection.execute(sql, {
                 'id_tweets':tweet['id'],
@@ -415,7 +415,7 @@ def insert_tweet(connection,tweet):
                     :id_tweets,
                     :id_urls,
                     :type )
-                ON CONFLICT DO NOTHING
+                ON CONFLICT DO NOTHING;
                 ''')
             res = connection.execute(sql, {
                 'id_tweets':tweet['id'],
